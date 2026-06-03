@@ -1,0 +1,231 @@
+* {
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+body {
+    margin: 0;
+    padding: 15px;
+    background-color: #f0f0f0;
+    /* En PC limitamos la altura al visor; en móvil permitiremos scroll */
+    min-height: 100vh; 
+}
+
+/* --- CONTENEDOR PRINCIPAL RESPONSIVO --- */
+.window-container {
+    display: grid;
+    grid-template-columns: 1fr; /* Por defecto: 1 columna (móvil primero) */
+    gap: 15px;
+    width: 100%;
+    height: auto;
+}
+
+/* --- COLUMNA DE CONTROLES --- */
+.sidebar {
+    width: 100%; /* Ocupa todo el ancho disponible */
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* --- COLUMNA DE LA GRÁFICA PRINCIPAL --- */
+.main-content {
+    background-color: #ffffff;
+    border: 1px solid #b5b5b5;
+    border-radius: 4px;
+    padding: 15px;
+    box-shadow: inset 0 0 5px rgba(0,0,0,0.05);
+    min-height: 400px; /* Altura mínima digna para la gráfica en móviles */
+    display: flex;
+    flex-direction: column;
+}
+
+.chart-container {
+    position: relative;
+    width: 100%;
+    flex-grow: 1;
+    min-height: 350px;
+}
+
+/* --- CONTROLES ESTILO WINDOWS FORMS --- */
+.group-box {
+    position: relative;
+    border: 1px solid #c0c0c0;
+    padding: 15px 12px 12px 12px;
+    margin-top: 8px;
+    background-color: #fcfcfc;
+    border-radius: 3px;
+}
+
+.group-box-title {
+    position: absolute;
+    top: -10px;
+    left: 12px;
+    background-color: #f0f0f0;
+    padding: 0 5px;
+    font-size: 12px;
+    font-weight: bold;
+    color: #333;
+}
+
+.control-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-bottom: 10px;
+}
+
+label {
+    font-size: 12px;
+    color: #222;
+}
+
+input[type="number"] {
+    width: 100%; /* En móviles se expande, en PC se verá más ordenado */
+    max-width: 200px;
+    padding: 6px;
+    border: 1px solid #a0a0a0;
+    border-radius: 2px;
+    font-size: 13px;
+}
+
+#btnIniciar {
+    width: 100%;
+    padding: 12px;
+    background-color: #add8e6;
+    border: 1px solid #7a9da8;
+    border-radius: 3px;
+    font-weight: bold;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+#btnIniciar:disabled {
+    background-color: #d3d3d3;
+    cursor: not-allowed;
+}
+
+.stat-label {
+    font-size: 12px;
+    font-weight: bold;
+    margin-bottom: 6px;
+}
+
+.blue-text { color: #00008b; }
+.green-text { color: #006400; }
+
+/* --- CONSOLA RETRO --- */
+#txtConsola {
+    width: 100%;
+    height: 200px; /* Altura fija inicial en móviles */
+    background-color: #000000;
+    color: #00ff00;
+    font-family: "Consolas", monospace;
+    font-size: 12px;
+    padding: 10px;
+    border: 1px solid #333;
+    border-radius: 3px;
+    resize: none;
+    white-space: pre;
+    overflow: auto;
+}
+
+/* --- VENTANA MODAL (CAMPANAS DE GAUSS) --- */
+.modal {
+    display: none; 
+    position: fixed;
+    z-index: 100;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.4);
+    overflow-y: auto; /* Permite scroll si las campanas no caben en vertical */
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 2% auto;
+    width: 95%;
+    max-width: 950px;
+    border-radius: 5px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+
+.modal-header {
+    padding: 12px 20px;
+    background-color: #f3f3f3;
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-header h2 {
+    margin: 0;
+    font-size: 14px;
+    color: #333;
+}
+
+.close-btn {
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.modal-body {
+    padding: 15px;
+    display: flex;
+    flex-direction: column; /* Campanas una debajo de otra en móvil */
+    gap: 20px;
+}
+
+.gauss-chart-wrapper {
+    width: 100%;
+    height: 280px;
+    position: relative;
+}
+
+/* ==========================================================================
+   --- MEDIA QUERY: DISEÑO PARA PANTALLAS GRANDES (PC / TABLETS HORIZONTAL) ---
+   ========================================================================== */
+@media (min-width: 850px) {
+    body {
+        overflow: hidden; /* Evitamos scroll general en PC */
+    }
+
+    .window-container {
+        /* Definimos 2 columnas: la izquierda mide 360px fijas, la derecha toma el resto */
+        grid-template-columns: 360px 1fr; 
+        height: calc(100vh - 30px);
+    }
+
+    .sidebar {
+        height: 100%;
+    }
+
+    #txtConsola {
+        flex-grow: 1; /* En PC la consola se estira para llenar el espacio inferior */
+        height: auto;
+    }
+
+    .main-content {
+        height: 100%;
+        min-height: auto;
+    }
+
+    /* Las campanas de Gauss se ponen lado a lado en PC */
+    .modal-body {
+        flex-direction: row; 
+    }
+
+    .gauss-chart-wrapper {
+        flex: 1;
+        height: 380px;
+    }
+    
+    .modal-header h2 {
+        font-size: 16px;
+    }
+}
