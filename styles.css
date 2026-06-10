@@ -1,0 +1,114 @@
+:root {
+    --bg-dark: #222d4e;
+    --bg-light: #f5f7fa;
+    --bg-panel: #ffffff;
+    --accent: #2296f3;
+    --danger: #f08080;
+    --text-main: #333;
+}
+
+body, html {
+    margin: 0; 
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--bg-light);
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Layout Grid Principal */
+.header {
+    background-color: var(--bg-dark);
+    color: white;
+    padding: 15px 20px;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.main-container {
+    display: grid;
+    grid-template-columns: 1fr 360px 1fr;
+    grid-template-rows: 1fr 220px;
+    flex: 1;
+    gap: 10px;
+    padding: 10px;
+    overflow: hidden;
+}
+
+.panel {
+    background-color: var(--bg-panel);
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+}
+
+/* Áreas específicas del Grid */
+.chart-area { grid-column: 1 / 2; grid-row: 1 / 2; }
+.controls-area { grid-column: 2 / 3; grid-row: 1 / 2; }
+.stats-area { grid-column: 3 / 4; grid-row: 1 / 2; }
+.console-area { 
+    grid-column: 1 / 4; 
+    grid-row: 2 / 3; 
+    background-color: black; 
+    color: #0f0; 
+    font-family: Consolas, monospace;
+}
+
+/* Controles de Formulario */
+.form-group { margin-bottom: 15px; }
+label { display: block; margin-bottom: 5px; font-size: 14px; font-weight: 500;}
+
+select, input[type="number"] {
+    width: 100%; 
+    padding: 8px; 
+    border: 1px solid #ccc;
+    border-radius: 4px; 
+    box-sizing: border-box;
+}
+
+.btn-row { display: flex; gap: 10px; margin-top: 20px; }
+button {
+    flex: 1; 
+    padding: 10px; 
+    border: none; 
+    border-radius: 4px;
+    font-weight: bold; 
+    cursor: pointer; 
+    color: white;
+}
+
+.btn-start { background-color: var(--accent); }
+.btn-stop { background-color: var(--danger); }
+.btn-reset { background-color: #aaa; }
+button:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* Consola y Tablas */
+#consola {
+    width: 100%; 
+    height: 100%;
+    background: transparent; 
+    color: inherit;
+    border: none; 
+    resize: none; 
+    outline: none;
+}
+
+table { 
+    width: 100%; 
+    border-collapse: collapse; 
+    font-size: 12px; 
+    margin-top: 10px; 
+}
+
+th, td { 
+    border: 1px solid #ddd; 
+    padding: 6px; 
+    text-align: left; 
+}
+
+th { background-color: #f2f2f2; }
+.stat-label { font-size: 13px; margin: 5px 0; font-weight: bold; color: #555; }

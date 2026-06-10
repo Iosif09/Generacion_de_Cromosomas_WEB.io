@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Algoritmo Genético - Mosaic Web Studio</title>
+    <!-- Enlace al archivo de estilos CSS -->
+    <link rel="stylesheet" href="styles.css">
+    <!-- Cargar Chart.js para las gráficas -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+    <div class="header">AG Mosaic - Visual Lab (Web)</div>
+
+    <div class="main-container">
+        <!-- Izquierda: Gráfica -->
+        <div class="panel chart-area">
+            <canvas id="graficoConvergencia"></canvas>
+        </div>
+
+        <!-- Centro: Controles -->
+        <div class="panel controls-area">
+            <h3>Parámetros</h3>
+            <div class="form-group">
+                <label>Función Objetivo:</label>
+                <select id="cbFunciones">
+                    <option value="0">Funcion Principal: 12x^5 - 975x^4 + ...</option>
+                    <option value="1">f(x) = 80 - (x - 8)^2</option>
+                    <option value="2">f(x) = 120 - (x - 15)^2</option>
+                    <option value="3">f(x) = 200 - (x - 27)^2</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Probabilidad de mutación:</label>
+                <input type="number" id="txtMutacion" step="0.0001" min="0.0001" max="0.1" value="0.01">
+            </div>
+            <div class="form-group">
+                <label>Generaciones máximas:</label>
+                <input type="number" id="txtGeneraciones" min="1" max="100000" value="50">
+            </div>
+            <div class="form-group">
+                <label>Ejecuciones:</label>
+                <input type="number" id="txtEjecuciones" min="1" max="500" value="3">
+            </div>
+            <div class="btn-row">
+                <button id="btnIniciar" class="btn-start">Iniciar</button>
+                <button id="btnDetener" class="btn-stop" disabled>Detener</button>
+                <button id="btnReiniciar" class="btn-reset">Reiniciar</button>
+            </div>
+        </div>
+
+        <!-- Derecha: Estadísticas -->
+        <div class="panel stats-area">
+            <h3>Estadísticas</h3>
+            <div id="lblTiempoMin" class="stat-label">Min: ---</div>
+            <div id="lblTiempoMax" class="stat-label">Max: ---</div>
+            <div id="lblTiempoProm" class="stat-label">Avg: ---</div>
+            <hr>
+            <div id="lblCPU" class="stat-label" title="Los navegadores no exponen el uso de CPU real">CPU: N/A (Restringido en Web)</div>
+            <div id="lblRAM" class="stat-label">RAM App: N/A</div>
+            <div id="lblContadorGeneraciones" class="stat-label">Total Gen. Procesadas: 0</div>
+            
+            <h4 style="margin-top: 15px; margin-bottom: 5px;">Historial</h4>
+            <div style="overflow-y: auto; flex: 1;">
+                <table id="tablaHistorial">
+                    <thead><tr><th>Ejec.</th><th>Cromosoma</th><th>X</th><th>f(x)</th></tr></thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+            <div id="lblBestMain" class="stat-label" style="color: var(--accent); margin-top: 10px;">Mejor Global: ---</div>
+        </div>
+
+        <!-- Abajo: Consola -->
+        <div class="panel console-area">
+            <textarea id="consola" readonly></textarea>
+        </div>
+    </div>
+
+    <!-- Enlace al archivo de lógica JavaScript -->
+    <script src="java.js"></script>
+</body>
+</html>
